@@ -10,4 +10,6 @@ interface EmployeeRepository {
 
     suspend fun getEmployeeByName(name: String) : List<EmployeeEntity>
 
+    suspend fun getEmployeeById(id: String) : EmployeeEntity
+
 }

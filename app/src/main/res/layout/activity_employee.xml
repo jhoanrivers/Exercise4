@@ -9,6 +9,16 @@
     tools:context=".ui.pages.main.EmployeeActivity">
 
 
+
+    <Button
+        android:id="@+id/btnWeather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check Weather"
+        android:textAllCaps="false"
+        android:layout_marginVertical="12dp"
+        />
+
     <EditText
         android:id="@+id/etEName"
         android:layout_width="match_parent"

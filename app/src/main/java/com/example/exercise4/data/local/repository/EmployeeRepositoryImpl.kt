@@ -42,4 +42,13 @@ class EmployeeRepositoryImpl @Inject constructor() : EmployeeRepository {
         }
         return employees
     }
+
+    override suspend fun getEmployeeById(id: String): EmployeeEntity {
+        val realm = Realm.getDefaultInstance()
+
+        return realm.use {realmInstance ->
+            realmInstance.where(EmployeeEntity::class.java).equalTo("id", id).findFirst()!!
+        }
+
+    }
 }

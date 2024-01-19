@@ -1,12 +1,16 @@
 package com.example.exercise4.ui.pages.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.exercise4.R
+import com.example.exercise4.data.local.model.EmployeeEntity
 import com.example.exercise4.databinding.ActivityEmployeeBinding
+import com.example.exercise4.ui.pages.salary.SalaryActivity
+import com.example.exercise4.ui.pages.weather.WeatherActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import javax.inject.Named
@@ -35,7 +39,11 @@ class EmployeeActivity : AppCompatActivity() {
     }
 
     fun initView() {
-        employeeAdapter = EmoloyeeAdapter()
+        employeeAdapter = EmoloyeeAdapter(object: EmoloyeeAdapter.EventListener{
+            override fun onClickItem(employeeEntity: EmployeeEntity) {
+                startActivity(Intent(this@EmployeeActivity, SalaryActivity::class.java).putExtra("employeeId", employeeEntity.id))
+            }
+        })
         employeeViewModel.getAllEmployee()
 
     }
@@ -70,6 +78,9 @@ class EmployeeActivity : AppCompatActivity() {
             employeeViewModel.getAllEmployee()
         }
 
+        binding.btnWeather.setOnClickListener {
+            startActivity(Intent(this@EmployeeActivity, WeatherActivity::class.java))
+        }
 
     }
 }

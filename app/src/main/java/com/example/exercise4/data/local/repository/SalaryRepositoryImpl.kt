@@ -20,11 +20,8 @@ class SalaryRepositoryImpl @Inject constructor(): SalaryRepository{
 
     override fun addSalary(salaryEntity: SalaryEntity) {
         val realm = Realm.getDefaultInstance()
-         realm.use { realm ->
+         realm.executeTransaction { realm ->
              realm.copyToRealmOrUpdate(salaryEntity)
-                 .let {
-                     realm.copyFromRealm(it)
-                 }
          }
     }
 

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.exercise4.data.local.model.EmployeeEntity
 import com.example.exercise4.databinding.ItemEmployeeBinding
 
-class EmoloyeeAdapter : RecyclerView.Adapter<EmoloyeeAdapter.ViewHolder>() {
+class EmoloyeeAdapter (private val listener: EmoloyeeAdapter.EventListener) : RecyclerView.Adapter<EmoloyeeAdapter.ViewHolder>() {
 
 
     var listEmployee = listOf<EmployeeEntity>()
@@ -26,6 +26,10 @@ class EmoloyeeAdapter : RecyclerView.Adapter<EmoloyeeAdapter.ViewHolder>() {
         }
     }
 
+    interface EventListener {
+        fun onClickItem(employeeEntity: EmployeeEntity)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemEmployeeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -37,5 +41,8 @@ class EmoloyeeAdapter : RecyclerView.Adapter<EmoloyeeAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(listEmployee[position])
+        holder.itemView.setOnClickListener {
+            listener.onClickItem(listEmployee[position])
+        }
     }
 }
